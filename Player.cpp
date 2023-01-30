@@ -1,18 +1,13 @@
 #include "Player.h"
 #include<Novice.h>
-Player::Player(int x, int y)
+Player::Player(int x,int y)
 {
-	transform.position = { float(x),float(y) };
+	transform.position = {float(x),float(y)};
 	transform.radius = 16;
 	speed = 10;
 }
 
-Player::~Player()
-{
-	delete bullet;
-}
-
-void Player::Update(char keys[], char preKeys[])
+void Player::Move(char keys[])
 {
 	if (keys[DIK_W])
 	{
@@ -30,21 +25,10 @@ void Player::Update(char keys[], char preKeys[])
 	{
 		transform.position.x += speed;
 	}
-
-	if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
-	{
-		if (!bullet->isShot)
-		{
-			bullet->position = transform.position;
-			bullet->isShot = 1;
-		}
-	}
-	bullet->Update();
 }
 
 void Player::Draw()
 {
-	Novice::DrawEllipse(transform.position.x, transform.position.y,
-		transform.radius, transform.radius, 0.0f, 0xffffffFF, kFillModeSolid);
-	bullet->Draw();
+	Novice::DrawEllipse(transform.position.x,transform.position.y,
+		transform.radius,transform.radius,0.0f,0xffffffFF,kFillModeSolid);
 }
